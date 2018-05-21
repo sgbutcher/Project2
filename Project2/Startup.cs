@@ -37,6 +37,9 @@ namespace Project2
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+
+            services.AddDbContext<Project2Context>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Project2Context")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +53,7 @@ namespace Project2
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Blurbs/Error");
             }
 
             app.UseStaticFiles();
@@ -61,7 +64,7 @@ namespace Project2
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=blurbs}/{action=Index}/{id?}");
             });
         }
     }
