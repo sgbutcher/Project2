@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Project2.Controllers
 {
+    [Authorize]
     public class BlurbsController : Controller
     {
         private readonly Project2Context _context;
@@ -22,15 +23,17 @@ namespace Project2.Controllers
         }
 
         // GET: Blurbs
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Blurb.ToListAsync());
         }
         // GET: Blurbs/Userblurbs
-        public async Task<IActionResult> Userblurbs()
+        [AllowAnonymous]
+        public async Task<IActionResult> Userblurbs(string id)
         {
             
-            return View(await _context.Blurb.ToListAsync());
+            return View(await _context.Blurb.Where(blurb => blurb.TKeyID == id).ToListAsync());
         }
 
         // GET: Blurbs/Details/5
@@ -54,6 +57,7 @@ namespace Project2.Controllers
         // GET: Blurbs/Create
         public IActionResult Create()
         {
+
             return View();
         }
 
@@ -88,6 +92,10 @@ namespace Project2.Controllers
             if (blurb == null)
             {
                 return NotFound();
+            }
+            if (blurb.TKeyID != User.FindFirstValue(ClaimTypes.NameIdentifier))
+            {
+                return Unauthorized();
             }
             return View(blurb);
         }
@@ -127,6 +135,10 @@ namespace Project2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            if (blurb.TKeyID != User.FindFirstValue(ClaimTypes.NameIdentifier))
+            {
+                return Unauthorized();
+            }
             return View(blurb);
         }
 
@@ -144,7 +156,10 @@ namespace Project2.Controllers
             {
                 return NotFound();
             }
-
+            if (blurb.TKeyID != User.FindFirstValue(ClaimTypes.NameIdentifier))
+            {
+                return Unauthorized();
+            }
             return View(blurb);
         }
 

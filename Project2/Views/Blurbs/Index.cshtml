@@ -1,45 +1,56 @@
 ﻿@model IEnumerable<Project2.Models.Blurb>
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <h2>Blurbs</h2>
+@if (SignInManager.IsSignedIn(User))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+@foreach (var item in Model)
+{
+    <table class="form-group">
+        <thead>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
-        @foreach (var item in Model)
-        {
-        <table class="form-group">
-            <thead>
-                    
-            </thead>
-            <tbody class="bg-info">
-                <tr>
-                    <th class="bg-primary">
-                        <a class="btn-primary" asp-action="Userblurbs" asp-route-id="@item.TKeyID">@Html.DisplayFor(modelItem => item.UserID)</a> | @Html.DisplayFor(modelItem => item.Date)
-</th>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Body)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.BlurbID">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.BlurbID">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.BlurbID">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        }
+        </thead>
+        <tbody class="bg-info">
+            <tr>
+                <th class="bg-primary">
+                    <a class="btn-primary" asp-action="Userblurbs" asp-route-id="@item.TKeyID">@Html.DisplayFor(modelItem => item.UserID)</a> | @Html.DisplayFor(modelItem => item.Date)
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Body)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @if (UserManager.GetUserName(User) == item.UserID)
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.BlurbID">Edit |</a>
+                    }
+                    @*@<a asp-action="Details" asp-route-id="@item.BlurbID">Details</a>*@
+                    @if (UserManager.GetUserName(User) == item.UserID)
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.BlurbID">| Delete</a>
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
 

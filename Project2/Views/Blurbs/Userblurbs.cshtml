@@ -1,15 +1,21 @@
 ﻿@model IEnumerable<Project2.Models.Blurb>
 
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
 @{
     ViewData["Title"] = "Userblurbs";
 }
 
 <h2>Userblurbs</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
+@if (SignInManager.IsSignedIn(User))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
 @foreach (var item in Model)
 {
     <table class="form-group">
@@ -34,9 +40,15 @@
             </tr>
             <tr>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.BlurbID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.BlurbID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.BlurbID">Delete</a>
+                    @if (UserManager.GetUserName(User) == item.UserID)
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.BlurbID">Edit </a>
+                    }
+                    @*<a asp-action="Details" asp-route-id="@item.BlurbID">Details</a>*@
+                    @if (UserManager.GetUserName(User) == item.UserID)
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.BlurbID"> Delete</a>
+                    }
                 </td>
             </tr>
         </tbody>
