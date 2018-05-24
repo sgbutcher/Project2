@@ -181,6 +181,33 @@ namespace Project2.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        // GET: Blurbs/Reply
+        public IActionResult Reply()
+        {
+
+            return View();
+        }
+
+        // POST: Blurbs/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Reply(int? id, [Bind("BlurbID,Title,Body")] Blurb blurb )
+        {
+            blurb.Date = DateTime.Now;
+            blurb.TKeyID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            blurb.UserID = User.FindFirstValue(ClaimTypes.Name);
+            string itemPrev = id.ToString();
+            blurb.ReplyID = itemPrev;
+            if (ModelState.IsValid)
+            {
+                _context.Add(blurb);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(blurb);
+        }
 
         private bool BlurbExists(int id)
         {

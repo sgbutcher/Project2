@@ -11,9 +11,10 @@ using System;
 namespace Project2.Migrations
 {
     [DbContext(typeof(Project2Context))]
-    partial class Project2ContextModelSnapshot : ModelSnapshot
+    [Migration("20180524100137_Reply")]
+    partial class Reply
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,7 +30,7 @@ namespace Project2.Migrations
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<string>("ReplyID");
+                    b.Property<int>("ReplyID");
 
                     b.Property<string>("TKeyID");
 

@@ -24,37 +24,80 @@ else
 }
 @foreach (var item in Model)
 {
-    <table class="form-group">
-        <thead>
+        if (item.ReplyID == null)
+        {
+            <table class="form-group">
+                <thead>
 
-        </thead>
-        <tbody class="bg-info">
-            <tr>
-                <th class="bg-primary">
-                    <a class="btn-primary" asp-action="Userblurbs" asp-route-id="@item.TKeyID">@Html.DisplayFor(modelItem => item.UserID)</a> | @Html.DisplayFor(modelItem => item.Date)
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Body)
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @if (UserManager.GetUserName(User) == item.UserID)
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.BlurbID">Edit</a>
-                        <span> | </span>
-                        <a asp-action="Delete" asp-route-id="@item.BlurbID">Delete</a>
-                    }
-                </td>
-            </tr>
-        </tbody>
-    </table>
-}
+                </thead>
+                <tbody class="bg-info">
+                    <tr>
+                        <th class="bg-primary">
+                            <a class="btn-primary" asp-action="Userblurbs" asp-route-id="@item.TKeyID">@Html.DisplayFor(modelItem => item.UserID)</a> | @Html.DisplayFor(modelItem => item.Date)
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Body)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @if (UserManager.GetUserName(User) == item.UserID)
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.BlurbID">Edit</a>
+                                <span> | </span>
+                                <a asp-action="Delete" asp-route-id="@item.BlurbID">Delete</a>
+                                <span> | </span>
+                            }
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <a asp-action="Reply" asp-route-id="@item.BlurbID">Reply</a>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <table class="form-group">
+                <thead>
+
+                </thead>
+                <tbody class="bg-warning">
+                    <tr>
+                        <th class="warning">
+                            <a class="btn-warning" asp-action="Userblurbs" asp-route-id="@item.TKeyID">@Html.DisplayFor(modelItem => item.UserID)</a><span class="btn-warning"> | @Html.DisplayFor(modelItem => item.Date)</span>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Body)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @if (UserManager.GetUserName(User) == item.UserID)
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.BlurbID">Edit</a>
+                                <span> | </span>
+                                <a asp-action="Delete" asp-route-id="@item.BlurbID">Delete</a>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+ }
 

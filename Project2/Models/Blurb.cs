@@ -15,5 +15,6 @@ namespace Project2.Models
         public DateTime Date { get; set; } 
         public string Title { get; set; }
         public string Body { get; set; }
+        public string ReplyID { get; set; }
     }
 }
