@@ -10,9 +10,10 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
+    <br>
+    <form asp-controller="blurbs" asp-action="Create" method="get">
+        <button class="btn-primary" type="submit">Create New</button>
+    </form>
 }
 else
 {
