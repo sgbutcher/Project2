@@ -26,6 +26,11 @@ namespace Project2.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
+            var blurb1 = _context.Blurb.FirstOrDefault();
+            if (blurb1 == null)
+            {
+                ViewData["Empty"] = "There are no Blurbs! yet... \nBe the First to create a Blurb!";
+            }
             return View(await _context.Blurb.ToListAsync());
         }
         // GET: Blurbs/Userblurbs

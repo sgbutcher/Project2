@@ -5,7 +5,7 @@
 @inject UserManager<ApplicationUser> UserManager
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Home";
 }
 
 @if (SignInManager.IsSignedIn(User))
@@ -13,7 +13,8 @@
     <p>
         <a asp-action="Create">Create New</a>
     </p>
-}else
+}
+else
 {
     <h2>
         Welcome to Blurbs!
@@ -22,8 +23,9 @@
         You can read existing Blurbs!, however if you would like to participate and post your own Blurbs! please <a asp-area="" asp-controller="Account" asp-action="Register">Register</a> or <a asp-area="" asp-controller="Account" asp-action="Login">Log in</a>
     </p>
 }
-
-
+<h3>
+    @ViewData["Empty"]
+</h3>
 @foreach (var item in Model)
 {
     <table class="form-group">
