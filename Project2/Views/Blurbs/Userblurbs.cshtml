@@ -26,7 +26,7 @@ else
 {
         if (item.ReplyID == null)
         {
-            <table class="form-group">
+            <table class="form-group fullwidthOne">
                 <thead>
 
                 </thead>
@@ -66,13 +66,13 @@ else
         }
         else
         {
-            <table class="form-group">
+            <table class="form-group fullwidthOne">
                 <thead>
 
                 </thead>
                 <tbody class="bg-warning">
                     <tr>
-                        <th class="warning">
+                        <th class="btn-warning">
                             <a class="btn-warning" asp-action="Userblurbs" asp-route-id="@item.TKeyID">@Html.DisplayFor(modelItem => item.UserID)</a><span class="btn-warning"> | @Html.DisplayFor(modelItem => item.Date)</span>
                         </th>
                     </tr>

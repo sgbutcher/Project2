@@ -28,12 +28,13 @@ else
     @ViewData["Empty"]
 </h3>
 @foreach (var item in Model)
-{if (item.ReplyID == null) { 
+{
+if (item.ReplyID == null) { 
     <table class="form-group">
         <thead>
 
         </thead>
-        <tbody class="bg-info">
+        <tbody class="bg-info fullwidthOne">
             <tr>
                 <th class="bg-primary">
                     <a class="btn-primary" asp-action="Userblurbs" asp-route-id="@item.TKeyID">@Html.DisplayFor(modelItem => item.UserID)</a> | @Html.DisplayFor(modelItem => item.Date)
@@ -78,7 +79,7 @@ else
                     </thead>
                     <tbody class="bg-warning">
                         <tr>
-                            <th class="warning">
+                            <th class="btn-warning">
                                 <a class="btn-warning" asp-action="Userblurbs" asp-route-id="@item2.TKeyID">@Html.DisplayFor(modelItem => item2.UserID)</a><span class="btn-warning"> | @Html.DisplayFor(modelItem => item2.Date)</span>
                             </th>
                         </tr>
