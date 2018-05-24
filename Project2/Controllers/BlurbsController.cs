@@ -32,7 +32,9 @@ namespace Project2.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Userblurbs(string id)
         {
-            
+            var firstBlurb =  _context.Blurb.First(blurb => blurb.TKeyID == id);
+            ViewData["Title"] = firstBlurb.UserID;
+            ViewData["nameHead"] = firstBlurb.UserID;
             return View(await _context.Blurb.Where(blurb => blurb.TKeyID == id).ToListAsync());
         }
 
