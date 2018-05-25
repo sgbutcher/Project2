@@ -32,7 +32,7 @@ else
                 </thead>
                 <tbody class="bg-info">
                     <tr>
-                        <th class="bg-primary">
+                        <th class="btn-primary">
                             <a class="btn-primary" asp-action="Userblurbs" asp-route-id="@item.TKeyID">@Html.DisplayFor(modelItem => item.UserID)</a> | @Html.DisplayFor(modelItem => item.Date)
                         </th>
                     </tr>
@@ -94,6 +94,11 @@ else
                                 <span> | </span>
                                 <a asp-action="Delete" asp-route-id="@item.BlurbID">Delete</a>
                             }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                              <span>In reply to: </span><a asp-action="Blurb" asp-route-id="@item.ReplyID">This Blurb!</a>
                         </td>
                     </tr>
                 </tbody>

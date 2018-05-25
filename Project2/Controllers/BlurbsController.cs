@@ -43,19 +43,19 @@ namespace Project2.Controllers
             return View(await _context.Blurb.Where(blurb => blurb.TKeyID == id).ToListAsync());
         }
 
-        // GET: Blurbs/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Blurbs/Blrub/5
+        public async Task<IActionResult> Blurb(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Noblurb));
             }
 
             var blurb = await _context.Blurb
                 .SingleOrDefaultAsync(m => m.BlurbID == id);
             if (blurb == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Noblurb));
             }
 
             return View(blurb);
@@ -92,13 +92,13 @@ namespace Project2.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Noblurb));
             }
 
             var blurb = await _context.Blurb.SingleOrDefaultAsync(m => m.BlurbID == id);
             if (blurb == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Noblurb));
             }
             if (blurb.TKeyID != User.FindFirstValue(ClaimTypes.NameIdentifier))
             {
@@ -119,7 +119,7 @@ namespace Project2.Controllers
             blurb.UserID = User.FindFirstValue(ClaimTypes.Name);
             if (id != blurb.BlurbID)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Noblurb));
             }
 
             if (ModelState.IsValid)
@@ -133,7 +133,7 @@ namespace Project2.Controllers
                 {
                     if (!BlurbExists(blurb.BlurbID))
                     {
-                        return NotFound();
+                        return RedirectToAction(nameof(Noblurb));
                     }
                     else
                     {
@@ -154,14 +154,14 @@ namespace Project2.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Noblurb));
             }
 
             var blurb = await _context.Blurb
                 .SingleOrDefaultAsync(m => m.BlurbID == id);
             if (blurb == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Noblurb));
             }
             if (blurb.TKeyID != User.FindFirstValue(ClaimTypes.NameIdentifier))
             {
@@ -188,7 +188,7 @@ namespace Project2.Controllers
             return View();
         }
 
-        // POST: Blurbs/Create
+        // POST: Blurbs/Reply
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -217,6 +217,10 @@ namespace Project2.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult Noblurb()
+        {
+            return View();
         }
     }
 }

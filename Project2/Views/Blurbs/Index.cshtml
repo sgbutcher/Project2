@@ -30,13 +30,13 @@ else
 @foreach (var item in Model)
 {
 if (item.ReplyID == null) { 
-    <table class="form-group">
+    <table class="form-group fullwidthOne">
         <thead>
 
         </thead>
-        <tbody class="bg-info fullwidthOne">
+        <tbody class="bg-info">
             <tr>
-                <th class="bg-primary">
+                <th class="btn-primary">
                     <a class="btn-primary" asp-action="Userblurbs" asp-route-id="@item.TKeyID">@Html.DisplayFor(modelItem => item.UserID)</a> | @Html.DisplayFor(modelItem => item.Date)
                 </th>
             </tr>
@@ -103,6 +103,7 @@ if (item.ReplyID == null) {
                                 }
                             </td>
                         </tr>
+  
                     </tbody>
                 </table>
             }

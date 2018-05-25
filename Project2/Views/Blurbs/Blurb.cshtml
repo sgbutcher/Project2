@@ -1,0 +1,41 @@
+﻿@model Project2.Models.Blurb
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Blurb";
+}
+
+<h2>Blurb!</h2>
+
+<table class="form-group fullwidthOne">
+
+    <tbody class="bg-info">
+        <tr>
+            <th class="btn-primary">
+                <a class="btn-primary" asp-action="Userblurbs" asp-route-id="@Model.TKeyID">@Html.DisplayFor(model => model.UserID)</a> | @Html.DisplayFor(model => model.Date)
+            </th>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayFor(model => model.Title)
+            </th>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.Body)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @if (UserManager.GetUserName(User) == Model.UserID)
+                {
+                    <a asp-action="Edit" asp-route-id="@Model.BlurbID">Edit</a>
+                    <span> | </span>
+                    <a asp-action="Delete" asp-route-id="@Model.BlurbID">Delete</a>
+                    <span> | </span>
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
+
